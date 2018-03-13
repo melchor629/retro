@@ -1,0 +1,9 @@
+*build/
+res/*
+!res/README.md
+doc/html/
+lib/macOS/*.framework/
+lib/windows/*
+!lib/windows/install.*
+xcuserdata
+cosas/
