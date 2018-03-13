@@ -1,6 +1,9 @@
 #include <Game.hpp>
 #include <Editor.hpp>
 
+#include "levels/FirstLevel.hpp"
+#include "levels/EndLevel.hpp"
+
 #if defined(__ANDROID__) || defined(__IOS__)
 #include <SDL_main.h>
 #endif
@@ -8,6 +11,21 @@
 using namespace std;
 using namespace retro;
 using namespace glm;
+using namespace hw;
+
+
+
+class HWGame: public Game {
+protected:
+    void setup() override {
+        //TODO Put some code
+    }
+
+    void cleanup() override {}
+
+public:
+    HWGame(const Builder &builder): Game(builder) {}
+};
 
 
 
@@ -16,7 +34,7 @@ static inline GameType* windowedBuilder(int, int);
 template<class GameType>
 static inline GameType* mobileBuilder();
 
-#include "DemoGame.inc.hpp"
+//#include "DemoGame.inc.hpp"
 //#include "shit.inc.hpp"
 
 #ifndef GAME_INCLUDED
@@ -40,7 +58,6 @@ int main(int argc, char* argv[]) {
         g->loop();
         delete g;
     } else {
-        //That's an spoiler ;)
 #if defined(__ANDROID__) || defined(__IOS__)
         auto g = mobileBuilder<HWGame>();
 #else
@@ -72,3 +89,4 @@ static inline GameType* mobileBuilder() {
     if(width < height) swap(width, height);
     return b.setSize(width, height).enableAudio().changeCanvasMode(Game::CanvasMode::UltraLowSize).build<GameType>();
 }
+

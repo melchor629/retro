@@ -174,6 +174,20 @@ add_executable(retro++
     src/game/lel.inc.hpp
     src/game/Palette.hpp
 
+    src/game/objects/CollectableObject.hpp
+    src/game/objects/DaPlayer.hpp
+    src/game/uiobjects/Dialog.hpp
+    src/game/uiobjects/InventoryHUD.hpp
+    src/game/levels/FirstLevel.hpp
+    src/game/levels/EndLevel.hpp
+
+    src/game/objects/CollectableObject.cpp
+    src/game/objects/DaPlayer.cpp
+    src/game/uiobjects/Dialog.cpp
+    src/game/uiobjects/InventoryHUD.cpp
+    src/game/levels/FirstLevel.cpp
+    src/game/levels/EndLevel.cpp
+
     src/game/main.cpp
 )
 
