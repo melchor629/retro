@@ -53,13 +53,14 @@ ln -s "/Users/melchor9000/Desktop/retro++/src/base" "/Users/melchor9000/Desktop/
 ln -s "/Users/melchor9000/Desktop/retro++/lib/glm" "/Users/melchor9000/Desktop/retro++/lib/json" "/Users/melchor9000/Desktop/retro++/lib/stb" "/Users/melchor9000/Desktop/retro++/lib/utfcpp" .
 ```
 
-And then, modify `app/src/main/jni/src/Android.mk` to look like the one that you can find in [android/app/src/main/jni/Application.mk](https://github.com/melchor629/retro/blob/master/android/app/src/main/jni/Application.mk).
+And then, modify `app/src/main/jni/src/Android.mk` to look like the one that you can find in [android/app/src/main/jni/src/Android.mk](https://github.com/melchor629/retro/blob/master/android/app/src/main/jni/src/Android.mk).
 
 Modify `app/src/main/jni/Application.mk` to look like this one [android/app/src/main/jni/Application.mk](https://github.com/melchor629/retro/blob/master/android/app/src/main/jni/Application.mk).
 
 Also modify `app/src/AndroidManifest.xml`, following the commentaries found there.
 
 Copy the contents of `android/app/src/main/java/` (from the [repo](https://github.com/melchor629/retro/blob/master/android/app/src/main/java/)) into your project. Contains only an Activity. That activity calls some C++ code required for the engine. While editing the manifest, create a new Activity that extends `me.melchor9000.retro.RetroActivity`, in your desired package.
+Make that new activity your default activity.
 
 If you get an error compiling SDL_mixer, try to download [SDL_mixer][5] from there.
 
