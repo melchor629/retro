@@ -658,10 +658,17 @@ Game::Game(const Game::Builder &builder): log(Logger::getLogger(builder.name)), 
     );
 #endif
 
+    SDL_RendererInfo info; int i = 0;
+    while(SDL_GetRenderDriverInfo(i++, &info) != -1) {
+        log.debug("Available 2D renderer #%d: %s", i, info.name);
+    }
+
     this->renderer = SDL_CreateRenderer(this->window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC | SDL_RENDERER_TARGETTEXTURE);
     if(this->renderer == nullptr) {
         throw runtime_error(string("Could not create the renderer: ") + SDL_GetError());
     }
+    SDL_GetRendererInfo(renderer, &info);
+    log.info("Using %s 2D renderer", info.name);
 
     SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "0"); //Pixel Art :)
     SDL_SetHint(SDL_HINT_RENDER_VSYNC, "1"); //VSync hermano
