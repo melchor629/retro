@@ -33,12 +33,12 @@ void EndLevel::update(float delta) {
     if(!tl.isCompleted()) {
         tl.animate(delta);
     } else {
-        constexpr float π = 3.1415926536f;
-        textColor.r = 190 + 64*sin(2 * π * textColorPhase / 2 - π/2);
-        textColor.g = 190 + 64*cos(2 * π * textColorPhase / 3);
-        textColor.b = 190 + 64*sin(2 * π * textColorPhase / 4 + π/2);
+        constexpr float pi = 3.1415926536f;
+        textColor.r = 190 + 64*sin(2 * pi * textColorPhase / 2 - pi/2);
+        textColor.g = 190 + 64*cos(2 * pi * textColorPhase / 3);
+        textColor.b = 190 + 64*sin(2 * pi * textColorPhase / 4 + pi/2);
         textColor.a = 0xEF;
-        ingPoint = pow(sin(2 * π * textColorPhase / 1.5f), 3);
+        ingPoint = pow(sin(2 * pi * textColorPhase / 1.5f), 3);
         textColorPhase += delta;
     }
 }
