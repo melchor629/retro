@@ -17,7 +17,7 @@ function dosdl() {
     print "Mounting $2.dmg"
     hdiutil attach $2.dmg > /dev/null || exit $?
     print "Coping $2.framework into macOS"
-    cp -r /Volumes/$2/$2.framework . || exit $?
+    cp -HR /Volumes/$2/$2.framework . || exit $?
     print "Unmounting and removing $2.dmg"
     hdiutil detach /Volumes/$2/ > /dev/null || exit $?
     rm $2.dmg || exit $?
