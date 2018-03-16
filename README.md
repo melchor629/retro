@@ -8,6 +8,10 @@ To develop using this engine, you will need the following:
     - [CMake](http://cmake.org)
  - **Debian/Ubuntu**
     - `build-essential` (in Ubuntu is usually installed by default)
+    - `g++` version 7.
+      - For Debian, maybe this works https://stackoverflow.com/questions/43151627/installing-g-7-0-1-on-debian-8-7
+      - On Ubuntu/Linux Mint try: `sudo add-apt-repository ppa:ubuntu-toolchain-r/test; sudo apt update; sudo apt install g++-7`
+      - When configuring cmake, use `cmake -DCMAKE_CXX_COMPILER=/usr/bin/g++-7 -DMAKE_C_COMPILER=/usr/bin/gcc-7`
     - `cmake`
     - `libsdl2-dev` / `libsdl2-2.0.0`
     - `libsdl2-ttf-dev` / `libsdl2-ttf-2.0.0`
@@ -29,13 +33,15 @@ To develop using this engine, you will need the following:
 
 `git clone --recursive https://github.com/melchor629/retro++`
 
-The repo has submodules on it, so it will initialize them as well when cloning.
+The repo has submodules on it, so it will initialize them when cloning.
 
 ## CMake
 
 To build the project, and do it consistently among Windows, Linux and macOS computers, retro++ uses [CMake](https://cmake.org) to generate the necessary files depending on the platform.
 
-The `CMakeFile.txt` on Windows and macOS will call a script that will download the SDL2 libraries and headers for you. If one of the scripts fail, try executing them manually, specially if you are on Windows because the script is a PowerShell script and executing them requires Administrator permissions in some cases.
+The `CMakeFile.txt` on Windows and macOS will call a script that will download the SDL2 libraries and headers for you. If one of the scripts fail, try executing them manually, specially if you are on Windows because the script is a PowerShell script and executing them requires Administrator permissions in some cases. In both platforms, using CMake GUI is enough and it is not needed to make any changes to the configuration to make it work.
+
+On Linux, while debugging, you should set `CMAKE_BUILD_TYPE` to `Debug` using either the CMake GUI or in terminal with `-DCMAKE_BUILD_TYPE=Debug`.
 
 ## inspect.py
 

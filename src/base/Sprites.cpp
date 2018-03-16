@@ -128,7 +128,7 @@ void Sprites::regenerateTextures() {
         }
     }
 
-    surface = SDL_CreateRGBSurfaceWithFormatFrom(this->pixels, w, h, 32, sizeof(uint32_t)*w, SDL_PIXELFORMAT_RGBA32);
+    surface = SDL_CreateRGBSurfaceFrom(this->pixels, w, h, 32, sizeof(uint32_t)*w, 0x000000ff, 0x0000ff00, 0x00ff0000, 0xff000000);
     texture = SDL_CreateTextureFromSurface(game.renderer, surface);
 }
 

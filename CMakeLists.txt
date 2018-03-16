@@ -55,9 +55,14 @@ elseif(WIN32)
     set(SO_PLATFORM_FILE "src/base/PlatformWindows.cpp")
 else()
     include(FindPkgConfig)
-    PKG_SEARCH_MODULE(SDL2 REQUIRED sdl2)
+    PKG_SEARCH_MODULE(SDL2 sdl2>=2.0.5)
     PKG_SEARCH_MODULE(SDL2TTF REQUIRED SDL2_ttf>=2.0.0)
     PKG_SEARCH_MODULE(SDL2MIXER REQUIRED SDL2_mixer>=2.0.0)
+    if(NOT SDL2_FOUND)
+        PKG_SEARCH_MODULE(SDL2 sd2)
+        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DSDL2_OLD")
+        message("-- You have a version of SDL2 prior to 2.0.5, some methods won't work!")
+    endif()
     set(SDL_INCLUDE_DIR
         "${SDL2_INCLUDE_DIRS}"
         "${SDL2TTF_INCLUDE_DIRS}"

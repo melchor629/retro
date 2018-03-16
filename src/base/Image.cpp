@@ -47,27 +47,27 @@ Image::Image(const string &path, Game &game, Image::Channels desired): game(game
     }
 
     int depth, pitch;
-    uint32_t pixelFormat;
     if((desired == Image::Undefined && c == STBI_rgb) || desired == Image::RGB) {
         depth = 24;
         pitch = 3 * x;
-        pixelFormat = SDL_PIXELFORMAT_RGB24;
         this->channels = Image::RGB;
     } else if((desired == Image::Undefined && c == STBI_rgb_alpha) || desired == Image::RGBA) {
         depth = 32;
         pitch = 4 * x;
-        pixelFormat = SDL_PIXELFORMAT_RGBA32;
         this->channels = Image::RGBA;
     } else {
         throw runtime_error("Unsupported pixel format: Grey (with alpha?)");
     }
 
-    SDL_Surface* surf = SDL_CreateRGBSurfaceWithFormatFrom(data,
-                                                           x,
-                                                           y,
-                                                           depth,
-                                                           pitch,
-                                                           pixelFormat);
+    SDL_Surface* surf = SDL_CreateRGBSurfaceFrom(data,
+                                                 x,
+                                                 y,
+                                                 depth,
+                                                 pitch,
+                                                 0x000000ff,
+                                                 0x0000ff00,
+                                                 0x00ff0000,
+                                                 (c == STBI_rgb) ? 0 : 0xff000000);
 
     this->surface = surf;
     this->data = data;
@@ -83,25 +83,25 @@ Image::Image(const void* buffer, size_t sizeInBytes, Game &game, Channels desire
     }
 
     int depth, pitch;
-    uint32_t pixelFormat;
     if(c == STBI_rgb) {
         depth = 24;
         pitch = 3 * x;
-        pixelFormat = SDL_PIXELFORMAT_RGB24;
     } else if(c == STBI_rgb_alpha) {
         depth = 32;
         pitch = 4 * x;
-        pixelFormat = SDL_PIXELFORMAT_RGBA32;
     } else {
         throw runtime_error("Unsupported pixel format: Grey (with alpha?)");
     }
 
-    SDL_Surface* surf = SDL_CreateRGBSurfaceWithFormatFrom(data,
-                                                           x,
-                                                           y,
-                                                           depth,
-                                                           pitch,
-                                                           pixelFormat);
+    SDL_Surface* surf = SDL_CreateRGBSurfaceFrom(data,
+                                                 x,
+                                                 y,
+                                                 depth,
+                                                 pitch,
+                                                 0x000000ff,
+                                                 0x0000ff00,
+                                                 0x00ff0000,
+                                                 (c == STBI_rgb) ? 0 : 0xff000000);
 
     this->surface = surf;
     this->data = data;
@@ -113,12 +113,15 @@ Image::Image(const void* buffer, size_t sizeInBytes, Game &game, Channels desire
 Image::Image(uint32_t* rawData, const glm::uvec2 &size, Channels channels, Game &game): game(game), references(*new atomic_size_t(1)) {
     data = rawData;
     int ch = channels == Image::RGBA ? 4 : 3;
-    surface = SDL_CreateRGBSurfaceWithFormatFrom(data,
-                                                 size.x,
-                                                 size.y,
-                                                 ch * 8,
-                                                 ch * size.x,
-                                                 channels == Image::RGBA ? SDL_PIXELFORMAT_RGBA32 : SDL_PIXELFORMAT_RGB24);
+    surface = SDL_CreateRGBSurfaceFrom(data,
+                                       size.x,
+                                       size.y,
+                                       ch*8,
+                                       ch*size.x,
+                                       0x000000ff,
+                                       0x0000ff00,
+                                       0x00ff0000,
+                                       (channels == Image::RGB) ? 0 : 0xff000000);
     width = size.x;
     height = size.y;
     this->channels = channels;

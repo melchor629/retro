@@ -16,8 +16,8 @@ static inline GameType* windowedBuilder(int, int);
 template<class GameType>
 static inline GameType* mobileBuilder();
 
-#include "DemoGame.inc.hpp"
-//#include "shit.inc.hpp"
+//#include "DemoGame.inc.hpp"
+#include "lel.inc.hpp"
 
 #ifndef GAME_INCLUDED
 int main(int argc, char* argv[]) {
