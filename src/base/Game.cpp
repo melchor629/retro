@@ -170,16 +170,21 @@ bool Game::Window::isResizable() {
 }
 
 void Game::Window::setResizable(bool v) {
+#ifndef SDL2_OLD
     SDL_SetWindowResizable(window, v ? SDL_TRUE : SDL_FALSE);
+#endif
 }
 
 void Game::Window::setIcon(void* pixels, const uvec2 &size, uint8_t bitDepth, uint8_t channels) {
-    SDL_Surface* surface = SDL_CreateRGBSurfaceWithFormatFrom(pixels,
-                                                              size.x,
-                                                              size.y,
-                                                              bitDepth,
-                                                              size.x * bitDepth / 8 * channels,
-                                                              channels == 3 ? SDL_PIXELFORMAT_RGB24 : SDL_PIXELFORMAT_RGBA32);
+    SDL_Surface* surface = SDL_CreateRGBSurfaceFrom(pixels,
+                                                    size.x,
+                                                    size.y,
+                                                    bitDepth,
+                                                    size.x * bitDepth / 8 * channels,
+                                                    0x000000ff,
+                                                    0x0000ff00,
+                                                    0x00ff0000,
+                                                    (channels == 3) ? 0 : 0xff000000);
     SDL_SetWindowIcon(window, surface);
     SDL_FreeSurface(surface);
 #if defined(__APPLE__) && defined(__MACH__)
@@ -201,14 +206,20 @@ void Game::Window::setSize(const uvec2 &size) {
 }
 
 float Game::Window::getOpacity() {
+#ifndef SDL2_OLD
     float f;
     return SDL_GetWindowOpacity(window, &f) == 0 ? f : 1.0f;
+#else
+    return 1.0f;
+#endif
 }
 
 void Game::Window::setOpacity(float op) {
+#ifndef SDL2_OLD
     if(SDL_SetWindowOpacity(window, op) == -1) {
         log.error("Could not change the window opacity: %s", SDL_GetError());
     }
+#endif
 }
 
 bool Game::Window::isBordered() {
@@ -614,13 +625,11 @@ Game::Game(const Game::Builder &builder): log(Logger::getLogger(builder.name)), 
         builder.frame.pos.y,
         builder.frame.size.x,
         builder.frame.size.y,
-        (builder.visible ? SDL_WINDOW_SHOWN : SDL_WINDOW_HIDDEN) | (builder.dp ? builder.dp_flag : 0) | SDL_WINDOW_OPENGL
+        (builder.visible ? SDL_WINDOW_SHOWN : SDL_WINDOW_HIDDEN) | (builder.dp ? builder.dp_flag : 0) | SDL_WINDOW_OPENGL | (builder.resizable ? SDL_WINDOW_RESIZABLE : 0)
     );
     if(this->window == nullptr) {
         throw runtime_error(string("Could not create the window: ") + SDL_GetError());
     }
-
-    SDL_SetWindowResizable(window, builder.resizable ? SDL_TRUE : SDL_FALSE);
     
     log.debug("Created window at (%.0f, %.0f) with size (%.0f, %.0f) %svisible%s",
               builder.frame.pos.x,
