@@ -504,7 +504,7 @@ bool Game::Audio::playMusic(const string &music, int loops) {
 
 bool Game::Audio::playMusicWithFadeIn(const string &music, uint32_t ms, int loops) {
     if(!enabled) return false;
-    return Mix_FadeInMusic(findMusic(music), loops, ms);
+    return Mix_FadeInMusic(findMusic(music), loops, ms) == 0;
 }
 
 bool Game::Audio::playMusicWithFadeInStartingAt(const string &music, uint32_t ms, double position, int loops) {
@@ -554,7 +554,7 @@ bool Game::Audio::stopMusicWithFadeOut(uint32_t ms) {
 
 bool Game::Audio::musicIsPlaying() {
     if(!enabled) return false;
-    return Mix_PlayingMusic() == 0;
+    return Mix_PlayingMusic() == 1;
 }
 
 bool Game::Audio::musicIsPaused() {

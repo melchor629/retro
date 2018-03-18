@@ -103,7 +103,7 @@
  * documentation of retro::Game::Audio to know every option you have. Also in a retro::Game, you
  * have accessible the variable retro::Game::audio, and for retro::Level, you have also the same
  * retro::Level::audio variable. **TIP** If you want to make retro music, you have the webpage
- * http://www.beepbox.co/, and allows you to export the music in `wav` or `midi`. You can use
+ * http://www.beepbox.co/ , and allows you to export the music in `wav` or `midi`. You can use
  * https://jfxr.frozenfractal.com to make sound effects, and exports audio to `wav`.
  *
  * There's UI elements that inherit from retro::Object. These objects have some special abilities.
