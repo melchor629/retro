@@ -150,9 +150,7 @@ This Python 3 script allows you to use the Inspection API quickly. To send comma
 
 ## Where's the resources?
 
-For the DemoGame, you will need to download a 8-bit-like font ([like this one](https://github.com/Neko250/sublime-PICO-8/blob/master/font/PICO-8.ttf)) and call it `8b.ttf` and obtain `onestop.mid` from `C:\Windows\Media\onestop.mid` or from internet. Put them inside `res`. That's the resources folder.
-
-This is just for now.
+You can find the resources in [this link][10]. Download it, and extract it in `res`.
 
 ## Libraries
  
@@ -175,3 +173,4 @@ This is just for now.
   [7]: https://www.visualstudio.com/
   [8]: https://cmake.org/download/
   [9]: https://itunes.apple.com/es/app/xcode/id497799835?mt=12
+  [10]: https://www.dropbox.com/s/w2jafy4b5rtpwox/resources-retro%2B%2B.7z?dl=1
