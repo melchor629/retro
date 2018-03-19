@@ -4,7 +4,7 @@
 
 ## Clone the repo
 
-`git clone --recursive https://github.com/melchor629/retro++`
+`git clone --recursive https://github.com/melchor629/retro`
 
 The repo has submodules on it, so it will initialize them when cloning.
 
