@@ -4,8 +4,11 @@
 
 using namespace hw;
 
-void CollectableObject::onCollisionStart(MovableObject &obj, CollisionFace face, const Frame &frame) {
-    //TODO Fill with code
+void CollectableObject::onCollisionStart(MovableObject &obj, CollisionFace face, const Frame &frame) {//5
+    levelAs<FirstLevel>().addToInventory(this);
+    setInvisible(true);
+    setDisabled(true);
+    game().getAudio().playSample("Pickup");
 }
 
 void CollectableObject::onCollisionEnd(MovableObject &obj, CollisionFace face, const Frame &frame) {
@@ -13,9 +16,15 @@ void CollectableObject::onCollisionEnd(MovableObject &obj, CollisionFace face, c
 }
 
 void CollectableObject::draw(GameActions &ga) {
-    //TODO Fill with code
+    sprite.draw_thicc({
+        ivec2(round(frame.pos - vec2(desp) - ga.camera())) * 2,
+        { 1, 1 }
+    });
 }
 
 void CollectableObject::drawForUI(GameActions &ga) {
-    //TODO Fill with code
+    sprite.draw({
+        frame.pos - 8.0f * vec2(desp),
+        { 8, 8 }
+    });
 }

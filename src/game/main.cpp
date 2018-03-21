@@ -18,7 +18,10 @@ using namespace hw;
 class HWGame: public Game {
 protected:
     void setup() override {
-        //TODO Put some code
+        importPalette("palette.aco");
+        loadFont("8b.ttf");
+        addLevel<FirstLevel>("firstLevel", true);
+        addLevel<EndLevel>("endLevel");
     }
 
     void cleanup() override {}

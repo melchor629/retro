@@ -6,6 +6,8 @@ void EndLevel::setup() {
     logo = Image::loadImage("hwl.png", game());
     logo->generateAndDestroy();
 
+    game().getAudio().loadMusic("endtheme.ogg");
+
     tl.add(AnimationChain<float>({
         delay<float>(1),
         Animation<float>(interpolator::CubicIn<>(),
@@ -38,8 +40,12 @@ void EndLevel::update(float delta) {
         textColor.g = 190 + 64*cos(2 * pi * textColorPhase / 3);
         textColor.b = 190 + 64*sin(2 * pi * textColorPhase / 4 + pi/2);
         textColor.a = 0xEF;
-        ingPoint = pow(sin(2 * pi * textColorPhase / 1.5f), 3);
+        ingPoint = pow(sin(2 * pi * textColorPhase / 0.925f), 3);
         textColorPhase += delta;
+    }
+
+    if(tl.get<float>(1).isCompleted() && !game().getAudio().musicIsPlaying()) {
+        log.info("Playing endtheme %d", game().getAudio().playMusicWithFadeIn("endtheme", 1000));
     }
 }
 
@@ -55,8 +61,8 @@ void EndLevel::draw() {
     logo->draw(logoFrame);
 
     if(showText && textColor.a != 0) {
-        static const string text1 = "Thanks for";
-        static const string text2 = "coming :)";
+        static const string text1 = "Thanks for"s;
+        static const string text2 = "coming :)"s;
         auto textSize = ga.sizeOfText(text1);
         ga.print(text1, { (canvasSize.x - textSize.x) / 2, canvasSize.y / 4 - textSize.y / 2 + ingPoint }, textColor);
         textSize = ga.sizeOfText(text2);

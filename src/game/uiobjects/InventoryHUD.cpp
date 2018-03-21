@@ -11,5 +11,13 @@ InventoryHUD::InventoryHUD(Game &game, Level &level, const vec2 &pos, const stri
 }
 
 void InventoryHUD::draw(GameActions &ga) {
-    //TODO Fill with code
+    float left = 0.0f;
+    for(auto item: inventory) {
+        auto oldPos = item->getFrame().pos;
+        auto frame = Frame{{ 10 + left, 10 }, item->getFrame().size * 16.0f + 2.0f * vec2(2, 6)};
+        item->getFrame().pos = { 10 + left + 6, 10 + 6 };
+        item->drawForUI(ga);
+        item->getFrame().pos = oldPos;
+        left += frame.size.x + 10;
+    }
 }
